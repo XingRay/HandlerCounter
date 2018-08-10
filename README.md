@@ -75,4 +75,28 @@ findViewById(R.id.bt_restart).setOnClickListener(new View.OnClickListener() {
 		mCounter.restart();
 	}
 });
+
+```
+
+in Activity or Fragment 
+```java
+@Override
+protected void onSaveInstanceState(Bundle outState) {
+	super.onSaveInstanceState(outState);
+	Log.i(TAG, "onSaveInstanceState: ");
+
+	if (mCounter != null) {
+		mCounter.onSaveInstanceState(outState);
+	}
+}
+
+@Override
+protected void onRestoreInstanceState(Bundle savedInstanceState) {
+	super.onRestoreInstanceState(savedInstanceState);
+	Log.i(TAG, "onRestoreInstanceState: ");
+
+	if (mCounter != null) {
+		mCounter.onRestoreInstanceState(savedInstanceState);
+	}
+}
 ```
