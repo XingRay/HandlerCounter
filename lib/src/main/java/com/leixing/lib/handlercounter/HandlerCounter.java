@@ -3,7 +3,6 @@ package com.leixing.lib.handlercounter;
 import android.os.Bundle;
 import android.os.Looper;
 import android.os.Message;
-import android.support.annotation.UiThread;
 
 import java.lang.ref.WeakReference;
 
@@ -178,7 +177,6 @@ public class HandlerCounter {
         return mCurrentValue;
     }
 
-    @UiThread
     void onCount() {
         long currentTimeMillis = System.currentTimeMillis();
         long countTime = currentTimeMillis - mStartTimeMills - mPauseTime;
@@ -208,7 +206,7 @@ public class HandlerCounter {
             return;
         }
 
-        long nextTimeMills = mStartTimeMills + mCounted * mCountInterval;
+        long nextTimeMills = mStartTimeMills + (mCounted + 1) * mCountInterval;
         long delayMills = Math.max(0, nextTimeMills - currentTimeMillis);
         sendMessage(delayMills);
     }
