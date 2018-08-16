@@ -25,7 +25,7 @@ Add the dependency
 
 ```grrovy
 dependencies {
-		implementation 'com.github.XingRay:HandlerCounter:0.0.1'
+		implementation 'com.github.XingRay:HandlerCounter:0.0.2'
 }
 ```
 
