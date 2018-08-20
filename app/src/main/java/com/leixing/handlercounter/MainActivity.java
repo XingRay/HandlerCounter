@@ -28,6 +28,7 @@ import butterknife.OnClick;
  */
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
+
     @BindView(R.id.tv_text)
     TextView tvText;
     @BindView(R.id.sw_strict_mode)
@@ -63,9 +64,13 @@ public class MainActivity extends AppCompatActivity {
         mActivity = this;
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        tvText = findViewById(R.id.tv_text);
+
         mCounter = new HandlerCounter()
+                .startValue(1)
+                .endValue(100)
+                .stepSize(1)
                 .countInterval(1000)
+                .strictMode(true)
                 .countListener(new CountListener() {
                     @Override
                     public void onCount(long count) {
@@ -74,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
                         Log.i(TAG, text);
                     }
                 })
+                .repeatMode(RepeatMode.RESTART)
+                .repeatCount(3)
                 .start();
 
         tvText.setOnClickListener(new View.OnClickListener() {

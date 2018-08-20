@@ -23,7 +23,7 @@ allprojects {
 ### Step 2. 
 Add the dependency
 
-```grrovy
+```groovy
 dependencies {
 		implementation 'com.github.XingRay:HandlerCounter:0.0.2'
 }
@@ -34,19 +34,25 @@ dependencies {
 sample 
 
 ```java
+
+HandlerCounter mCounter;
+
 mCounter = new HandlerCounter()
-		.startValue(100)
-		.endValue(10000)
-		.countStep(1)
-		.countInterval(1000)
-		.strictMode(true)
-		.countListener(new CountListener() {
-			@Override
-			public void onCount(long count) {
-				String text = count + "s";
-				tvText.setText(text);
-			}
-		});
+                .startValue(1)
+                .endValue(100)
+                .stepSize(1)
+                .countInterval(1000)
+                .countListener(new CountListener() {
+                    @Override
+                    public void onCount(long count) {
+                        String text = count + "";
+                        tvText.setText(text);
+                        Log.i(TAG, text);
+                    }
+                })
+                .repeatMode(RepeatMode.RESTART)
+                .repeatCount(3)
+                .start();
 
 findViewById(R.id.bt_start).setOnClickListener(new View.OnClickListener() {
 	@Override
@@ -78,7 +84,7 @@ findViewById(R.id.bt_restart).setOnClickListener(new View.OnClickListener() {
 
 ```
 
-in Activity or Fragment 
+save/restore state in Activity or Fragment
 ```java
 @Override
 protected void onSaveInstanceState(Bundle outState) {
@@ -100,3 +106,5 @@ protected void onRestoreInstanceState(Bundle savedInstanceState) {
 	}
 }
 ```
+
+more features see sample in MainActivity

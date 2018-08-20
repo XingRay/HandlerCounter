@@ -253,6 +253,7 @@ public class HandlerCounter {
         mStatus = CounterStatus.fromOrdinal(state.getInt(KEY_STATUS));
         mCycleIndex = state.getLong(KEY_CYCLE_INDEX);
 
+        removeMessage();
         if (mStatus == CounterStatus.RUNNING) {
             sendCountMessage();
         }
@@ -265,7 +266,7 @@ public class HandlerCounter {
         boolean hasNext = true;
 
         if (mStrictMode) {
-            for (long i = mStepIndex; i <= index; i++) {
+            for (long i = mStepIndex + 1; i <= index; i++) {
                 if (adjustCycle(i)) {
                     doCount(i);
                 } else {
