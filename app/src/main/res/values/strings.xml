@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">HandlerCounter</string>
+    <string name="back">返回</string>
+    <string name="forward">前进</string>
 </resources>

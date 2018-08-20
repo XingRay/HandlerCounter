@@ -7,6 +7,7 @@ package com.leixing.lib.handlercounter;
  * email : leixing@baidu.com
  * @date : 2018/8/10 11:30
  */
+@SuppressWarnings("WeakerAccess")
 public interface CounterStatusListener {
     /**
      * 计数器状态回调

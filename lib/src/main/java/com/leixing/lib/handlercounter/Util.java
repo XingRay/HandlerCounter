@@ -7,6 +7,7 @@ package com.leixing.lib.handlercounter;
  * email : leixing@baidu.com
  * @date : 2018/8/16 15:31
  */
+@SuppressWarnings("WeakerAccess")
 public class Util {
     private Util() {
         throw new UnsupportedOperationException();

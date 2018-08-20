@@ -1,5 +1,5 @@
 # HandlerCounter
-counter for android impliment by handler
+counter for android implement by handler
 
 [![](https://jitpack.io/v/XingRay/HandlerCounter.svg)](https://jitpack.io/#XingRay/HandlerCounter)
 

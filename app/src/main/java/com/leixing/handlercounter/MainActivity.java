@@ -26,6 +26,7 @@ import butterknife.OnClick;
  * email : leixing@baidu.com
  * @date : 2018/8/9 14:17
  */
+@SuppressWarnings("WeakerAccess")
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
