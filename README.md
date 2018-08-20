@@ -25,7 +25,7 @@ Add the dependency
 
 ```groovy
 dependencies {
-		implementation 'com.github.XingRay:HandlerCounter:0.0.2'
+		implementation 'com.github.XingRay:HandlerCounter:0.0.4'
 }
 ```
 
