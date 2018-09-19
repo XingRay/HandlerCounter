@@ -6,8 +6,6 @@ import android.os.Message;
 
 import java.lang.ref.WeakReference;
 
-import static com.leixing.lib.handlercounter.CounterHandler.MSG_COUNT;
-
 /**
  * description : 计数器
  *
@@ -319,13 +317,13 @@ public class HandlerCounter {
     }
 
     private void sendCountMessage(long delayMills) {
-        Message message = mHandler.obtainMessage(MSG_COUNT);
+        Message message = mHandler.obtainMessage(CounterHandler.MSG_COUNT);
         message.obj = new WeakReference<>(this);
         mHandler.sendMessageDelayed(message, delayMills);
     }
 
     private void removeMessage() {
-        mHandler.removeMessages(MSG_COUNT);
+        mHandler.removeMessages(CounterHandler.MSG_COUNT);
     }
 
     private void notifyNewStatus(CounterStatus status) {
