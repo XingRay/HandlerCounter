@@ -4,13 +4,12 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.xingray.handlercounter.CountListener;
@@ -21,13 +20,12 @@ import com.xingray.sample.util.ViewHelper;
 
 
 /**
- * description : xxx
+ * description : 主页
  *
  * @author : leixing
  * email : leixing1012@qq.com
  * @date : 2018/8/9 14:17
  */
-@SuppressWarnings("WeakerAccess")
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -39,18 +37,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText etInterval;
     private EditText etStepSize;
     private Switch swStrictMode;
-    private RadioGroup rgRepeatModeGroup;
     private RadioButton rbNone;
     private RadioButton rbRestart;
     private RadioButton rbReverse;
     private Switch swInfiniteRepeat;
     private EditText etRepeatCount;
     private TextView tvText;
-    private Button btApply;
-    private Button btStart;
-    private Button btStop;
-    private Button btPause;
-    private Button btRestart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         Log.i(TAG, "onRestoreInstanceState: ");
 
@@ -166,27 +158,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void findViews() {
-        etStartValue = (EditText) findViewById(R.id.et_start_value);
-        etEndValue = (EditText) findViewById(R.id.et_end_value);
-        etInterval = (EditText) findViewById(R.id.et_interval);
-        etStepSize = (EditText) findViewById(R.id.et_step_size);
-        swStrictMode = (Switch) findViewById(R.id.sw_strict_mode);
-        rgRepeatModeGroup = (RadioGroup) findViewById(R.id.rg_repeat_mode_group);
-        rbNone = (RadioButton) findViewById(R.id.rb_none);
-        rbRestart = (RadioButton) findViewById(R.id.rb_restart);
-        rbReverse = (RadioButton) findViewById(R.id.rb_reverse);
-        swInfiniteRepeat = (Switch) findViewById(R.id.sw_infinite_repeat);
-        etRepeatCount = (EditText) findViewById(R.id.et_repeat_count);
-        tvText = (TextView) findViewById(R.id.tv_text);
-        btApply = (Button) findViewById(R.id.bt_apply);
-        btStart = (Button) findViewById(R.id.bt_start);
-        btStop = (Button) findViewById(R.id.bt_stop);
-        btPause = (Button) findViewById(R.id.bt_pause);
-        btRestart = (Button) findViewById(R.id.bt_restart);
-    }
-
-
-    private void setOnClick(int[] ids, View.OnClickListener listener) {
-
+        etStartValue = findViewById(R.id.et_start_value);
+        etEndValue = findViewById(R.id.et_end_value);
+        etInterval = findViewById(R.id.et_interval);
+        etStepSize = findViewById(R.id.et_step_size);
+        swStrictMode = findViewById(R.id.sw_strict_mode);
+        rbNone = findViewById(R.id.rb_none);
+        rbRestart = findViewById(R.id.rb_restart);
+        rbReverse = findViewById(R.id.rb_reverse);
+        swInfiniteRepeat = findViewById(R.id.sw_infinite_repeat);
+        etRepeatCount = findViewById(R.id.et_repeat_count);
+        tvText = findViewById(R.id.tv_text);
     }
 }
