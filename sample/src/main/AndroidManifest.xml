@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".page.MainActivity">
+        <activity android:name=".page.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".page.TestActivity" />
+        <activity android:name=".page.test.TestActivity" />
+        <activity android:name=".page.setting.SettingTestActivity" />
 
     </application>
 

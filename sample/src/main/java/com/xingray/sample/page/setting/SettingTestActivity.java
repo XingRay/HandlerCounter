@@ -1,6 +1,8 @@
-package com.xingray.sample.page;
+package com.xingray.sample.page.setting;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +18,7 @@ import com.xingray.handlercounter.CountListener;
 import com.xingray.handlercounter.HandlerCounter;
 import com.xingray.handlercounter.RepeatMode;
 import com.xingray.sample.R;
+import com.xingray.sample.page.test.TestActivity;
 import com.xingray.sample.util.ViewHelper;
 
 
@@ -26,9 +29,9 @@ import com.xingray.sample.util.ViewHelper;
  * email : leixing1012@qq.com
  * @date : 2018/8/9 14:17
  */
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class SettingTestActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = SettingTestActivity.class.getSimpleName();
 
     private HandlerCounter mCounter;
     private Activity mActivity;
@@ -49,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
 
         mActivity = this;
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_setting_test);
         findViews();
 
         ViewHelper.setOnClick(getWindow().getDecorView(), new int[]{

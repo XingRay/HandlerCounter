@@ -1,4 +1,4 @@
-package com.xingray.sample.page;
+package com.xingray.sample.page.test;
 
 import android.app.Activity;
 import android.content.Intent;
