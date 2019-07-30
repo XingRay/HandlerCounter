@@ -1,8 +1,6 @@
 package com.xingray.sample.page.setting;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -65,7 +63,7 @@ public class SettingTestActivity extends AppCompatActivity implements View.OnCli
         mCounter = new HandlerCounter()
                 .startValue(1)
                 .endValue(100)
-                .stepSize(1)
+                .countValue(1)
                 .countInterval(1000)
                 .strictMode(true)
                 .countListener(new CountListener() {
@@ -108,7 +106,7 @@ public class SettingTestActivity extends AppCompatActivity implements View.OnCli
                 mCounter.startValue(readValue(etStartValue, 0))
                         .endValue(readValue(etEndValue, 0))
                         .countInterval(readValue(etInterval, 1000))
-                        .stepSize(readValue(etStepSize, 1))
+                        .countValue(readValue(etStepSize, 1))
                         .strictMode(swStrictMode.isChecked());
                 if (rbNone.isChecked()) {
                     mCounter.clearRepeat();

@@ -45,7 +45,7 @@ public class HandlerCounter {
     private static final String KEY_STEP_INDEX = KEY_PREFIX + "mStepIndex";
     private static final String KEY_CURRENT_VALUE = KEY_PREFIX + "mCurrentValue";
     private static final String KEY_STRICT_MODE = KEY_PREFIX + "mStrictMode";
-    private static final String KEY_STEP_SIZE = KEY_PREFIX + "mStepSize";
+    private static final String KEY_STEP_SIZE = KEY_PREFIX + "mCountValue";
     private static final String KEY_COUNTER_INTERVAL = KEY_PREFIX + "mCountInterval";
     private static final String KEY_END_VALUE = KEY_PREFIX + "mEndValue";
     private static final String KEY_START_VALUE = KEY_PREFIX + "mStartValue";
@@ -58,7 +58,7 @@ public class HandlerCounter {
     private long mStartValue = 0;
     private long mEndValue = Long.MAX_VALUE;
     private long mCountInterval = DEFAULT_INTERVAL_MILLS;
-    private long mStepSize = 1;
+    private long mCountValue = 1;
     private boolean mStrictMode = false;
     private long mRepeatCount = 1;
 
@@ -79,7 +79,12 @@ public class HandlerCounter {
     private RepeatMode mRepeatMode = REPEAT_MODE_DEFAULT;
 
     public HandlerCounter() {
-        mHandler = new CounterHandler(Looper.getMainLooper());
+        this(Looper.getMainLooper());
+    }
+
+    @SuppressWarnings("WeakerAccess")
+    public HandlerCounter(Looper looper) {
+        mHandler = new CounterHandler(looper);
         mStatus = CounterStatus.IDLE;
     }
 
@@ -101,8 +106,8 @@ public class HandlerCounter {
         return this;
     }
 
-    public HandlerCounter stepSize(long stepSize) {
-        mStepSize = stepSize;
+    public HandlerCounter countValue(long countValue) {
+        mCountValue = countValue;
         return this;
     }
 
@@ -161,7 +166,7 @@ public class HandlerCounter {
     }
 
     public long getCountStep() {
-        return mStepSize;
+        return mCountValue;
     }
 
     public boolean isStrictMode() {
@@ -181,7 +186,7 @@ public class HandlerCounter {
         removeMessage();
         mCurrentValue = mStartValue;
         mStepIndex = 0;
-        mStartTimeMills = System.currentTimeMillis();
+        mStartTimeMills = System.nanoTime();
         mPauseTimeMills = 0;
         mCycleIndex = 0;
         sendCountMessage();
@@ -199,7 +204,7 @@ public class HandlerCounter {
         if (mStatus != CounterStatus.RUNNING) {
             return this;
         }
-        mLastPauseTimeMills = System.currentTimeMillis();
+        mLastPauseTimeMills = System.nanoTime();
         removeMessage();
         notifyNewStatus(CounterStatus.PAUSE);
         return this;
@@ -209,7 +214,7 @@ public class HandlerCounter {
         if (mStatus != CounterStatus.PAUSE) {
             return this;
         }
-        mPauseTimeMills += System.currentTimeMillis() - mLastPauseTimeMills;
+        mPauseTimeMills += System.nanoTime() - mLastPauseTimeMills;
         removeMessage();
         sendCountMessage();
         notifyNewStatus(CounterStatus.RUNNING);
@@ -220,7 +225,7 @@ public class HandlerCounter {
         state.putLong(KEY_START_VALUE, mStartValue);
         state.putLong(KEY_END_VALUE, mEndValue);
         state.putLong(KEY_COUNTER_INTERVAL, mCountInterval);
-        state.putLong(KEY_STEP_SIZE, mStepSize);
+        state.putLong(KEY_STEP_SIZE, mCountValue);
         state.putBoolean(KEY_STRICT_MODE, mStrictMode);
         state.putLong(KEY_REPEAT_COUNT, mRepeatCount);
 
@@ -239,7 +244,7 @@ public class HandlerCounter {
         mStartValue = state.getLong(KEY_START_VALUE);
         mEndValue = state.getLong(KEY_END_VALUE);
         mCountInterval = state.getLong(KEY_COUNTER_INTERVAL);
-        mStepSize = state.getLong(KEY_STEP_SIZE);
+        mCountValue = state.getLong(KEY_STEP_SIZE);
         mStrictMode = state.getBoolean(KEY_STRICT_MODE);
         mRepeatCount = state.getLong(KEY_REPEAT_COUNT);
 
@@ -258,7 +263,7 @@ public class HandlerCounter {
     }
 
     void onCount() {
-        long currentTimeMillis = System.currentTimeMillis();
+        long currentTimeMillis = System.nanoTime();
         long countTime = currentTimeMillis - mStartTimeMills - mPauseTimeMills;
         long index = countTime / mCountInterval;
         boolean hasNext = true;
@@ -296,7 +301,7 @@ public class HandlerCounter {
         boolean isInfinite = mRepeatCount == REPEAT_INFINITE;
 
         for (long index = mCycleIndex; isInfinite || index < count; index++) {
-            if (mRepeatMode.isInCycle(mStartValue, mEndValue, stepIndex, mStepSize, index)) {
+            if (mRepeatMode.isInCycle(mStartValue, mEndValue, stepIndex, mCountValue, index)) {
                 mCycleIndex = index;
                 return true;
             }
@@ -306,7 +311,7 @@ public class HandlerCounter {
 
     private void doCount(long index) {
         mStepIndex = index;
-        mCurrentValue = mRepeatMode.generate(mStartValue, mEndValue, mStepIndex, mStepSize, mCycleIndex);
+        mCurrentValue = mRepeatMode.generate(mStartValue, mEndValue, mStepIndex, mCountValue, mCycleIndex);
         if (mCountListener != null) {
             mCountListener.onCount(mCurrentValue);
         }
